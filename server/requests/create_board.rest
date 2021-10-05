@@ -3,6 +3,6 @@ Content-Type: application/json
 
 {
   "board": {
-    "title": "My new board 4"
+    "title": "My new board 2"
   }
 }

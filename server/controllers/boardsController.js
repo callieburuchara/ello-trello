@@ -1,9 +1,14 @@
 const Board = require("../models/board")
+const List = require("../models/lists")
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
 const getBoards = (req, res, next) => {
-  Board.find({}, "title _id createdAt updatedAt").then((boards) => {
+  Board.find({})
+  .populate({
+    path: "lists"
+  })
+  .then((boards) => {
     res.json({
       boards,
     });
