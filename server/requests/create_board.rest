@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/boards
+Content-Type: application/json
+
+{
+  "board": {
+    "title": "My new board 4"
+  }
+}

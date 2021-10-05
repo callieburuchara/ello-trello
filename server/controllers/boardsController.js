@@ -1,4 +1,4 @@
-const Board = require("../models/board");
+const Board = require("../models/board")
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
@@ -27,5 +27,19 @@ const createBoard = (req, res, next) => {
   }
 };
 
+const getBoard = (req, res, next) => {
+  const id = req.params.id
+  Board.findOne({ _id: id })
+  .populate({
+    path: "lists",
+    populate: {
+      path: "cards"
+    }
+  })
+  .then((board) => res.json({board}))
+  .catch((err) => next(new HttpError("CALLIE DENIES THIS REQUEST!", 404)))
+}
+
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
+exports.getBoard = getBoard
