@@ -9,6 +9,10 @@ export function fetchBoardsSuccess(boards) {
   return { type: types.FETCH_BOARDS_SUCCESS, boards };
 }
 
+export function fetchBoardByIdRequest(id) {
+  return { type: types.FETCH_BOARD_BY_ID_REQUEST, id }
+}
+
 export function createBoardRequest() {
   return { type: types.CREATE_BOARD_REQUEST };
 }
@@ -22,6 +26,20 @@ export function fetchBoards() {
     dispatch(fetchBoardsRequest());
     apiClient.getBoards(data => dispatch(fetchBoardsSuccess(data.boards)));
   };
+}
+
+export function fetchBoardById(id, callback) {
+  return function(dispatch) {
+    dispatch(fetchBoardByIdRequest(id));
+    apiClient.getBoardById(id, data => {
+      dispatch({type: "BOARD_FETCHED", board: data});
+
+      if (callback) {
+        callback(data.board)
+      }
+    })
+  }
+
 }
 
 export function createBoard(board, callback) {
