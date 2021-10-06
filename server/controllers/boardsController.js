@@ -1,13 +1,11 @@
 const Board = require("../models/board")
 const List = require("../models/lists")
+const Card = require("../models/card")
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
 const getBoards = (req, res, next) => {
-  Board.find({})
-  .populate({
-    path: "lists"
-  })
+  Board.find({}, "title createdAt updatedAt _id")
   .then((boards) => {
     res.json({
       boards,
@@ -38,10 +36,10 @@ const getBoard = (req, res, next) => {
   .populate({
     path: "lists",
     populate: {
-      path: "cards"
+      path: "cards",
     }
   })
-  .then((board) => res.json({board}))
+  .then((board) => res.json(board))
   .catch((err) => next(new HttpError("CALLIE DENIES THIS REQUEST!", 404)))
 }
 
