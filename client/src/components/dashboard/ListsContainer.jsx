@@ -3,10 +3,10 @@ import { useSelector } from "react-redux"
 import ExistingLists from "./ExistingLists"
 import AddList from "./AddList"
 
-const ListsContainer = () => {
+const ListsContainer = ({boardId}) => {
   return (
     <>
-      <ExistingLists />
+      <ExistingLists boardId={boardId}/>
       <AddList />
     </>
   )

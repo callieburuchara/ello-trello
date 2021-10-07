@@ -10,5 +10,5 @@ router.post('/boards', validateBoard, boardsController.createBoard );
 router.get('/boards/:id', boardsController.getBoard)
 
 // router.post('/lists')
-
+ 
 module.exports = router;
