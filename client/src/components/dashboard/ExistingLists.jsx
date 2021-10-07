@@ -5,11 +5,8 @@ import List from "./List"
 
 const ExistingLists = ({boardId}) => {
   const lists = useSelector(state => state.lists.filter(list => list.boardId === boardId))
-  const state = useSelector(state => state)
-
-  console.log(state)
-  console.log(boardId)
-  //console.log(lists)
+  // console.log(lists)
+  // console.log(boardId)
 
 // need to extract/format stuff below for the lists. Add List component and integrate. Add Card components (maybe a description one?)
   return (
