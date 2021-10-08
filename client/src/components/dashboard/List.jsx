@@ -2,7 +2,6 @@ import React from "react"
 import CardContainer from "./CardContainer"
 
 const List = ({list}) => {
-  // console.log(list)
   return (
     <div className="list-wrapper">
       <div className="list-background">

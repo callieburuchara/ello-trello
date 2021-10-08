@@ -1,25 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux"
 import List from "./List"
-//import { Link } from "react-router-dom";
 
 const ExistingLists = ({boardId}) => {
   const lists = useSelector(state => state.lists.filter(list => list.boardId === boardId))
-  // console.log(lists)
-  // console.log(boardId)
 
-// need to extract/format stuff below for the lists. Add List component and integrate. Add Card components (maybe a description one?)
   return (
     <>
-      <main>
-        <div id="list-container" className="list-container">
-          <div id="existing-lists" className="existing-lists">
+        <div id="existing-lists" className="existing-lists">
           {lists.map(list => {
             return <List list={list} />
           })}
           </div>
-        </div>
-      </main>
       <div className="menu-sidebar">
         <div id="menu-main" className="main slide">
           <i className="back-icon icon"></i>

@@ -5,8 +5,10 @@ import AddList from "./AddList"
 const ListsContainer = ({boardId}) => {
   return (
     <>
-      <ExistingLists boardId={boardId}/>
-      <AddList />
+      <div id="list-container" className="list-container">
+        <ExistingLists boardId={boardId}/>
+      </div>
+      <AddList boardId={boardId}/>
     </>
   )
 }
