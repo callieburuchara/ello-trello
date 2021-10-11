@@ -45,8 +45,6 @@ const updateListTitle = (req, res, next) => {
   const listId = req.params.id
   const title = req.body.title
 
-  console.log(title)
-
   List.findByIdAndUpdate(listId, { title })
     .then((list) => {
       req.list = list

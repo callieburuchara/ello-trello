@@ -4,7 +4,6 @@ import Card from "./Card"
 
 const ExistingCards = ({listId}) => {
   const cards = useSelector(state => state.cards.filter(card => card.listId === listId))
-  console.log(cards)
 
   return (
     <>

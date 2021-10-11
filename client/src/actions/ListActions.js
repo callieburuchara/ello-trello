@@ -5,6 +5,10 @@ export function createListSuccess(list) {
   return { type: types.CREATE_LIST_SUCCESS, list }
 }
 
+export function updateListSuccess(title, id) {
+  return { type: types.UPDATE_LIST_SUCCESS, title, id}
+}
+
 export function createNewList(listName, boardId, callback) {
   return function(dispatch) {
     const newList = {
@@ -15,19 +19,23 @@ export function createNewList(listName, boardId, callback) {
     }
 
     apiClient.createNewList(newList, data => {
-      console.log("I AM THE DATA", data)
-      dispatch(createListSuccess(data.list))
-
-      // Right now, when we try to create a new list, it looks like it's working on the backend
-      // but then we get an error like reading it is wrong? 
-
-      // We think that the issue is because our previous lists we created were manually added
-      // so there may be a new disconnect between how we used to parse lists and how we do it now
-      // that we have actually created them through post requests. 
-
+      dispatch(createListSuccess(data))
       if (callback) {
-        callback(data.list)
+        callback(data)
       }
     })
   }
 }
+
+export function updateList(listName, id) {
+  const updatedList = {
+    title: listName
+  }
+  console.log("EYECATCTCHING", id, listName)
+  return function(dispatch) {
+    apiClient.updateList(id, updatedList, data => {
+      dispatch(updateListSuccess(data.title, data._id))
+    })
+    
+  }
+} 

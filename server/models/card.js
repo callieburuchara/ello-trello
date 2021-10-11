@@ -12,8 +12,8 @@ const CardSchema = new Schema({
   listId: { type: Schema.Types.ObjectId, ref: "List" },
   boardId: { type: Schema.Types.ObjectId, ref: "Board" },
   position: Number,
-  commentsCount: Number
-})
+  commentsCount: Number,
+}, { timestamps: true })
 
 const Card = mongoose.model('Card', CardSchema);
 
