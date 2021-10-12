@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import CardContainer from "./CardContainer"
 import { updateList } from "../../actions/ListActions"
 
-const List = ({list}) => {
+const List = ({list, activeCard, onAddCardClick, onAddCardClose }) => {
   const [titleInput, setTitleInput] = useState(list.title)
   const [titleClicked, setTitleClicked] = useState(false)
 
@@ -15,7 +15,7 @@ const List = ({list}) => {
   }
 
   return (
-    <div className="list-wrapper">
+    <div className={activeCard ? "list-wrapper add-dropdown-active" : "list-wrapper"} >
       <div className="list-background">
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
@@ -39,7 +39,11 @@ const List = ({list}) => {
               <span>...</span>
             </div>
             </div>
-            <CardContainer listId={list._id} />
+            <CardContainer 
+              listId={list._id} å
+              activeCard={activeCard}
+              onAddCardClick={onAddCardClick}
+              onAddCardClose={onAddCardClose} />
           </div>
       </div>
     </div>
