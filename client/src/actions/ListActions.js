@@ -31,7 +31,7 @@ export function updateList(listName, id) {
   const updatedList = {
     title: listName
   }
-  console.log("EYECATCTCHING", id, listName)
+
   return function(dispatch) {
     apiClient.updateList(id, updatedList, data => {
       dispatch(updateListSuccess(data.title, data._id))

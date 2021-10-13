@@ -5,9 +5,13 @@ export function createCardSuccess(card) {
   return { type: types.CREATE_CARD_SUCCESS, card }
 }
 
-export function getCardSuccess(card) {
-  return { type: types.GET_CARD_SUCCESS, card}
+export function updateCardSuccess(card) {
+  return { type: types.UPDATE_CARD_SUCCESS, card}
 }
+
+// export function getCardSuccess(card) {
+//   return { type: types.GET_CARD_SUCCESS, card}
+// }
 
 export function createNewCard(cardName, listId, callback) {
   return function(dispatch) {
@@ -27,6 +31,18 @@ export function createNewCard(cardName, listId, callback) {
     })
   }
 }
+
+export function updateCard(titleName, id) {
+  const updatedCard = {
+    title: titleName
+  }
+
+  return function(dispatch) {
+    apiClient.updateCard(id, updatedCard, data => {
+      dispatch(updateCardSuccess(data.title, data._id))
+    })
+  }
+} 
 
 // If needed - getCard function
 // export function getCard(cardId) {

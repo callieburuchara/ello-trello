@@ -1,0 +1,8 @@
+PUT http://localhost:5000/api/cards/6166fe49497fae6b1510ffcc
+Content-Type: application/json
+
+{
+  "card": {
+    "title": "THIS IS THE TITLE SENT FROM THE REST"
+  }
+}

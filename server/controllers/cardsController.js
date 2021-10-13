@@ -64,6 +64,18 @@ const addCardToList = (req, res, next) => {
   }).then(() => next() )
 };
 
+const updateCard = (req, res, next) => {
+  const cardId = req.params.id
+  const title = req.body.card.title
+
+  Card.findByIdAndUpdate(cardId, { title })
+    .then((card) => {
+      req.card = card
+      next()
+    }
+  )
+}
+
 const sendCard = (req, res, next) => {
   res.json(req.card)
 }
@@ -72,3 +84,4 @@ exports.createCard = createCard;
 exports.addCardToList = addCardToList;
 exports.sendCard = sendCard
 exports.getCard = getCard
+exports.updateCard = updateCard

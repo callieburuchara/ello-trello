@@ -1,7 +1,10 @@
-import React from "react"
-import { useSelector } from "react-redux";
+import React, { useState } from "react"
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { updateCard } from "../../actions/CardActions"
+
 const Modal = () => {
+  const dispatch = useDispatch()
   const cardId = useParams().id
   let card = useSelector(state => state.cards).filter(c => c._id === cardId)
   let list = useSelector(state => {
@@ -12,6 +15,8 @@ const Modal = () => {
     }
   })
 
+  const [titleInput, setTitleInput] = useState(card ? card[0].title : "")
+  console.log(titleInput)
   if (!card) {
     return null
   } else {
@@ -24,8 +29,12 @@ const Modal = () => {
         <i className="x-icon icon close-modal"></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
-          <textarea className="list-title" style={{ height: "45px" }}>
-            {card.title}
+          <textarea className="list-title" 
+                    style={{ height: "45px" }} 
+                    value={titleInput} 
+                    onChange={(e) => setTitleInput(e.target.value)} 
+                    onBlur={() => dispatch(updateCard(titleInput, card._id))}>
+            {titleInput}
           </textarea>
           <p>
             in list <a className="link">{list.title}</a>
