@@ -27,4 +27,13 @@ export function createNewCard(cardName, listId, callback) {
     })
   }
 }
+
+// If needed - getCard function
+// export function getCard(cardId) {
+//   return function(dispatch) {
+//     apiClient.getCardById(cardId, data => {
+//       dispatch(getCard)
+//     })
+//   }
+// }
  

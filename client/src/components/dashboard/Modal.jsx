@@ -1,26 +1,22 @@
 import React from "react"
-import { useParams } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const Modal = () => {
-  // WHERE WE LEFT OFF:
-  // - Modal shows when a card is clicked
-  // - The modal is not customized yet
-  // - The board is not being rendered behind the modal
-
-  const dispatch = useDispatch()
   const cardId = useParams().id
-  const card = useSelector(state => state.cards.filter(c => c._id === cardId))
-  let boardId
+  let card = useSelector(state => state.cards).filter(c => c._id === cardId)
+  let list = useSelector(state => {
+    if (card) {
+      return state.lists.filter(l => l._id === card[0].listId)
+    } else {
+      return null
+    }
+  })
 
-  if (card.length > 0) {
-    boardId = card[0].boardId
-    console.log(boardId)
+  if (!card) {
+    return null
   } else {
-    console.log("no cards are found!")
-    // dispatch(getCard(cardId))
-  }
-
+    card = card[0]
+    list = list[0]
   return (
     <div id="modal-container">
       <div className="screen"></div>
@@ -29,11 +25,10 @@ const Modal = () => {
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" style={{ height: "45px" }}>
-            Cards do many cool things. Click on this card to open it and learn
-            more...
+            {card.title}
           </textarea>
           <p>
-            in list <a className="link">Stuff to try (this is a list)</a>
+            in list <a className="link">{list.title}</a>
             <i className="sub-icon sm-icon"></i>
           </p>
         </header>
@@ -74,7 +69,7 @@ const Modal = () => {
                       className="checkbox"
                       checked=""
                     />
-                    Aug 4 at 10:42 AM <span>(past due)</span>
+                    {card.dueDate}<span>(past due)</span>
                   </div>
                 </li>
               </ul>
@@ -84,7 +79,7 @@ const Modal = () => {
                   Edit
                 </span>
                 <p className="textarea-overlay">
-                  Cards have a symbol to indicate if they contain a description.
+                  {card.description}
                 </p>
                 <p id="description-edit-options" className="hidden">
                   You have unsaved edits on this field.{" "}
@@ -253,6 +248,7 @@ const Modal = () => {
       </div>
     </div>
     )
+  }
 }
 
 
