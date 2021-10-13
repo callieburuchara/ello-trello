@@ -13,14 +13,15 @@ const getCard = (req, res, next) => {
   .catch((err) => next(new HttpError("There is no such card.", 404)))
 }
 
-const createCard = (req, res, next) => {
+const createCard = async (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
+    console.log("Is this printing?")
     const listId = req.body.listId
 
     let boardId;
-    List.findById(listId, "boardId").then(list => boardId = list.boardId )
-
+    await List.findById(listId, "boardId").then(list => boardId = list.boardId)
+    console.log(boardId)
 
     const objToSend = {
       "title": req.body.card.title,
@@ -36,10 +37,10 @@ const createCard = (req, res, next) => {
       "actions": [], 
       "commentsCount": 0 
     }
-
+    // "title _id listId boardId createdAt updatedAt"
     Card.create(objToSend)
       .then((card) => {
-        Card.findById(card._id, "title _id listId boardId createdAt updatedAt").then(
+        Card.findById(card._id).then(
           (card) => {
             req.card = card
             next()

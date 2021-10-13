@@ -7,19 +7,19 @@ const Modal = () => {
   // - Modal shows when a card is clicked
   // - The modal is not customized yet
   // - The board is not being rendered behind the modal
-  // The cards aren't rendering at all anymore. Sorry..
 
+  const dispatch = useDispatch()
+  const cardId = useParams().id
+  const card = useSelector(state => state.cards.filter(c => c._id === cardId))
+  let boardId
 
-  // const dispatch = useDispatch()
-  // const cardId = useParams().id
-  // const card = useSelector(state => state.cards.filter(c => c._id === cardId))
-  // let boardId
-
-  // if (card.length > 0) {
-  //   boardId = card[0].boardId
-  // } else {
-  //   //dispatch(getCard(cardId))
-  // }
+  if (card.length > 0) {
+    boardId = card[0].boardId
+    console.log(boardId)
+  } else {
+    console.log("no cards are found!")
+    // dispatch(getCard(cardId))
+  }
 
   return (
     <div id="modal-container">
