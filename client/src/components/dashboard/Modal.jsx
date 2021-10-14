@@ -26,7 +26,7 @@ const Modal = () => {
 
   const [titleInput, setTitleInput] = useState(card ? card.title : "")
 
-  if (!card) {
+  if (!card || !list) {
     return null
   } else {
 
