@@ -31,6 +31,7 @@ export function fetchBoards() {
 export function fetchBoardById(id, callback) {
   return function(dispatch) {
     dispatch(fetchBoardByIdRequest(id));
+    
     apiClient.getBoardById(id, data => {
       dispatch({type: "BOARD_FETCHED", board: data});
 

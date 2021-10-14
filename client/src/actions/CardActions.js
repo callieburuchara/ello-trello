@@ -9,9 +9,9 @@ export function updateCardSuccess(card) {
   return { type: types.UPDATE_CARD_SUCCESS, card}
 }
 
-// export function getCardSuccess(card) {
-//   return { type: types.GET_CARD_SUCCESS, card}
-// }
+export function getCardSuccess(card) {
+  return { type: types.GET_CARD_SUCCESS, card}
+}
 
 export function createNewCard(cardName, listId, callback) {
   return function(dispatch) {
@@ -44,12 +44,11 @@ export function updateCard(titleName, id) {
   }
 } 
 
-// If needed - getCard function
-// export function getCard(cardId) {
-//   return function(dispatch) {
-//     apiClient.getCardById(cardId, data => {
-//       dispatch(getCard)
-//     })
-//   }
-// }
+export function getCard(cardId) {
+  return function(dispatch) {
+    apiClient.getCardById(cardId, data => {
+      dispatch(getCardSuccess(data))
+    })
+  }
+}
  

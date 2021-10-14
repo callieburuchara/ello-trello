@@ -1,33 +1,41 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { updateCard } from "../../actions/CardActions"
+import * as actions from "../../actions/CardActions"
 
 const Modal = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const cardId = useParams().id
-  let card = useSelector(state => state.cards).filter(c => c._id === cardId)
+  let card = useSelector(state => state.cards).find(c => c._id === cardId)
+
   let list = useSelector(state => {
     if (card) {
-      return state.lists.filter(l => l._id === card[0].listId)
+      console.log("List is fetched!")
+      return state.lists.find(l => l._id === card.listId)
     } else {
       return null
     }
   })
 
-  const [titleInput, setTitleInput] = useState(card ? card[0].title : "")
-  console.log("I AM THE CARD", card)
+  useEffect(() => {
+    dispatch(actions.getCard(cardId))
+    console.log("Card was fetched!")
+  }, [cardId, list])
+
+  const [titleInput, setTitleInput] = useState(card ? card.title : "")
 
   if (!card) {
     return null
   } else {
-    card = card[0]
-    list = list[0]
+
+
   return (
     <div id="modal-container">
       <div className="screen"></div>
       <div id="modal">
-        <i className="x-icon icon close-modal"></i>
+        <i className="x-icon icon close-modal" onClick={() => history.goBack()}></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" 

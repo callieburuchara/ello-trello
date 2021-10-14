@@ -8,42 +8,28 @@ import ListsContainer from "./ListsContainer"
 const Board = props => {
   const dispatch = useDispatch()
   const cards = useSelector(state => state.cards)
-  const location = useLocation()
+  const location = useLocation().pathname
   const unknownId = useParams().id
   let boardId;
   let cardId;
 
-  if (location.pathname.includes("boards")) {
+  if (location.includes("boards")) {
     boardId = unknownId
-  } else if (location.pathname.includes("cards")){
+  } else if (location.includes("cards")){
     cardId = unknownId
+    const card = cards.find(c => c._id === cardId)
+    if (card) boardId = card.boardId
   }
-
-  useEffect (() => {
-    if (cardId && cards.length < 1) {
-      dispatch(actions.fetchBoards())
-    }
-  }, [dispatch, cardId, cards])
-
-  const card = useSelector(state => {
-    if (cardId) {
-      return state.cards.filter(c => c._id === cardId)
-    } else {
-      return null
-    }
-  })
-
-  if (!boardId) {
-    boardId = card.boardId
-  } 
 
   useEffect(() => {
     if (boardId) {
       dispatch(actions.fetchBoardById(boardId))
+      // this isn't triggering when we (a) open the card modal view nor (b) when we refresh the page in card modal view
     }
-  }, [dispatch, boardId])
+  }, [boardId])
+ 
+  const board = useSelector(state => state.boards).find(b => b._id === boardId)
 
-  const board = useSelector(state => state.boards).filter(b => b._id === boardId)
 
   if (board) {
     return (

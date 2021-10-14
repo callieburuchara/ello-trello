@@ -1,6 +1,7 @@
 export default function lists(state = [], action) {
   switch (action.type) {
     case "BOARD_FETCHED": {
+      console.log("WHERE ARE THE LISTS", action.board.lists)
       return action.board.lists
     }
     case "CREATE_LIST_SUCCESS": {
