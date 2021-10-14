@@ -15,8 +15,8 @@ const getCard = (req, res, next) => {
 
 const createCard = async (req, res, next) => {
   const errors = validationResult(req);
+  
   if (errors.isEmpty()) {
-    console.log("Is this printing?")
     const listId = req.body.listId
 
     let boardId;
@@ -37,10 +37,10 @@ const createCard = async (req, res, next) => {
       "actions": [], 
       "commentsCount": 0 
     }
-    // "title _id listId boardId createdAt updatedAt"
+    
     Card.create(objToSend)
       .then((card) => {
-        Card.findById(card._id).then(
+        Card.findById(card._id, "title _id listId boardId createdAt updatedAt").then(
           (card) => {
             req.card = card
             next()
@@ -66,9 +66,7 @@ const addCardToList = (req, res, next) => {
 
 const updateCard = (req, res, next) => {
   const cardId = req.params.id
-  console.log("I AM BODY", req.body)
   const title = req.body.title
-  console.log("I AM TITLE", title)
 
   Card.findByIdAndUpdate(cardId, { title })
     .then((card) => {
