@@ -16,7 +16,8 @@ const Modal = () => {
   })
 
   const [titleInput, setTitleInput] = useState(card ? card[0].title : "")
-  console.log(titleInput)
+  console.log("I AM THE CARD", card)
+
   if (!card) {
     return null
   } else {

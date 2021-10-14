@@ -66,7 +66,9 @@ const addCardToList = (req, res, next) => {
 
 const updateCard = (req, res, next) => {
   const cardId = req.params.id
-  const title = req.body.card.title
+  console.log("I AM BODY", req.body)
+  const title = req.body.title
+  console.log("I AM TITLE", title)
 
   Card.findByIdAndUpdate(cardId, { title })
     .then((card) => {
